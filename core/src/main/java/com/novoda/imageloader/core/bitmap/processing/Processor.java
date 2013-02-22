@@ -21,6 +21,6 @@ import android.graphics.Bitmap;
 
 public interface Processor {
 
-    public Bitmap process(Bitmap in);
+    Bitmap process(Bitmap in);
 
 }

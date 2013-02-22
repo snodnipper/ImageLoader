@@ -23,9 +23,9 @@ import android.util.TypedValue;
 
 public class RoundedCorners implements Processor {
 
-    final int mBorderColor;
-    final int mCornerPx;
-    final int mBorderPx;
+    private final int mBorderColor;
+    private final int mCornerPx;
+    private final int mBorderPx;
 
     public static RoundedCorners getInstance(int borderColor, int borderDips, int cornerDips, Context context) {
         int borderSizePx = getPixelsFromDips(borderDips, context);
