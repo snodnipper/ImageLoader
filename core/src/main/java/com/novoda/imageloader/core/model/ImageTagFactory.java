@@ -20,6 +20,7 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
 
+import com.novoda.imageloader.core.bitmap.processing.Processor;
 import com.novoda.imageloader.core.util.AnimationHelper;
 
 public final class ImageTagFactory {
@@ -34,6 +35,7 @@ public final class ImageTagFactory {
     private boolean saveThumbnail;
     private boolean useSameUrlForPreviewImage;
     private int animationRes = AnimationHelper.ANIMATION_DISABLED;
+    private Processor processor;
     private String description;
 
     private ImageTagFactory() {
@@ -213,6 +215,9 @@ public final class ImageTagFactory {
 
     }
 
+    public void setProcessor(Processor processor) {
+        this.processor = processor;
+    }
 
     /**
      * Creates a new ImageTag for the given iamge url. It uses the previously set parameters.
@@ -239,6 +244,7 @@ public final class ImageTagFactory {
         it.setPreviewWidth(previewImageWidth);
         it.setDescription(description);
         setTagAnimation(animationHelper, it);
+        it.setProcessor(processor);
         return it;
     }
 

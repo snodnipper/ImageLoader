@@ -17,6 +17,7 @@ package com.novoda.imageloader.core.model;
 
 import android.view.animation.Animation;
 
+import com.novoda.imageloader.core.bitmap.processing.Processor;
 import com.novoda.imageloader.core.loader.util.LoaderTask;
 
 import java.lang.ref.WeakReference;
@@ -41,6 +42,7 @@ public class ImageTag {
 	private boolean useOnlyCache;
 	private boolean saveThumbnail;
 	private Animation animation;
+    private Processor processor;
     private String description;
 	private WeakReference<LoaderTask> loaderTaskReference;
 
@@ -111,6 +113,14 @@ public class ImageTag {
 	public void setPreviewHeight(int previewHeight) {
 		this.previewHeight = previewHeight;
 	}
+
+    public Processor getProcessor() {
+        return processor;
+    }
+
+    public void setProcessor(Processor processor) {
+        this.processor = processor;
+    }
 
 	public Animation getAnimation() {
 		return animation;

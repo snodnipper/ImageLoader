@@ -53,6 +53,7 @@ public class ConcurrentLoader implements Loader {
     private void loadBitmap(ImageWrapper w) {
         if (!isTaskAlreadyRunning(w)) {
             if (isBitmapAlreadyInCache(getCachedBitmap(w))) {
+                Log.e("ImageLoader", "Processing: using cache!");
                 Bitmap cachedBitmap = getCachedBitmap(w);
                 w.setBitmap(cachedBitmap);
                 return;

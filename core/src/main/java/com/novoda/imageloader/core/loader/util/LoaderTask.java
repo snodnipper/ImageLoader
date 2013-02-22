@@ -20,6 +20,7 @@ import android.graphics.Bitmap;
 
 import com.novoda.imageloader.core.LoaderSettings;
 import com.novoda.imageloader.core.OnImageLoadedListener;
+import com.novoda.imageloader.core.bitmap.processing.Processor;
 import com.novoda.imageloader.core.exception.ImageNotFoundException;
 import com.novoda.imageloader.core.model.ImageWrapper;
 
@@ -79,27 +80,35 @@ public class LoaderTask extends AsyncTask<String, Void, Bitmap> {
         if (hasImageViewUrlChanged(imageWrapper)) {
             return null;
         }
-        return getImageFromFile(imageFile);
-    }
 
-    private Bitmap getImageFromFile(File imageFile) {
-        Bitmap b;
-        if (loaderSettings.isAlwaysUseOriginalSize()) {
-            b = loaderSettings.getBitmapUtil().decodeFile(imageFile, width, height);
-        } else {
-            b = loaderSettings.getBitmapUtil().decodeFileAndScale(imageFile, width, height, loaderSettings.isAllowUpsampling());
+        Bitmap bitmap = getImageFromFile(imageFile);
+
+        if (bitmap == null) {
+            // decoding failed
+            return null;
         }
 
-        if (b == null) {
-            // decoding failed
-            return b;
+        Processor processor = imageWrapper.getProcessor();
+        if (processor != null && bitmap != null) {
+            bitmap = processor.process(bitmap);
         }
 
         if (saveScaledImage) {
-            saveScaledImage(imageFile, b);
+            saveScaledImage(imageFile, bitmap);
         }
-        loaderSettings.getCacheManager().put(url, b);
-        return b;
+
+        // update cache
+        loaderSettings.getCacheManager().put(url, bitmap);
+
+        return bitmap;
+    }
+
+    private Bitmap getImageFromFile(File imageFile) {
+        if (loaderSettings.isAlwaysUseOriginalSize()) {
+            return loaderSettings.getBitmapUtil().decodeFile(imageFile, width, height);
+        } else {
+            return loaderSettings.getBitmapUtil().decodeFileAndScale(imageFile, width, height, loaderSettings.isAllowUpsampling());
+        }
     }
 
     private void setTagInformation(ImageWrapper imageWrapper) {

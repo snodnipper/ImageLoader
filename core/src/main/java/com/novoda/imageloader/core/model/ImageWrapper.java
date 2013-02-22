@@ -21,6 +21,7 @@ import android.graphics.Bitmap;
 import android.view.animation.Animation;
 import android.widget.ImageView;
 
+import com.novoda.imageloader.core.bitmap.processing.Processor;
 import com.novoda.imageloader.core.loader.util.BitmapDisplayer;
 import com.novoda.imageloader.core.loader.util.LoaderTask;
 
@@ -41,6 +42,7 @@ public class ImageWrapper {
 	private boolean isUseCacheOnly;
 	private boolean saveThumbnail;
 	private Animation animation;
+    private Processor processor;
 
 	public ImageWrapper(ImageView imageView) {
         this.imageView = imageView;
@@ -66,6 +68,7 @@ public class ImageWrapper {
 		}
 		this.previewUrl = tag.getPreviewUrl();
 		this.animation = tag.getAnimation();
+        this.processor = tag.getProcessor();
 	}
 
 	public String getCurrentUrl() {
@@ -91,6 +94,10 @@ public class ImageWrapper {
 
     public ImageView getImageView() {
         return imageView;
+    }
+
+    public Processor getProcessor() {
+        return processor;
     }
 
 	public void runOnUiThread(BitmapDisplayer displayer) {
