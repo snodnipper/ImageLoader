@@ -17,6 +17,7 @@ package com.novoda.imageloader.core.file;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.net.URI;
 
 import android.graphics.Bitmap;
 
@@ -80,6 +81,13 @@ public class BasicFileManager implements FileManager {
     @Override
     public File getFile(String url) {
         url = processUrl(url);
+
+        // if local resource return
+        URI uri = URI.create(url);
+        if (uri.getScheme().equals("file")) {
+            return new File(uri);
+        }
+
         String filename = String.valueOf(url.hashCode());
         return new File(loaderSettings.getCacheDir(), filename);
     }
