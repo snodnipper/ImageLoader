@@ -17,6 +17,7 @@ package com.novoda.imageloader.core.model;
 
 import android.view.animation.Animation;
 
+import com.novoda.imageloader.core.bitmap.ProcessBundle;
 import com.novoda.imageloader.core.bitmap.processing.Processor;
 import com.novoda.imageloader.core.loader.util.LoaderTask;
 
@@ -43,6 +44,7 @@ public class ImageTag {
 	private boolean saveThumbnail;
 	private Animation animation;
     private Processor processor;
+    private ProcessBundle processBundle;
     private String description;
 	private WeakReference<LoaderTask> loaderTaskReference;
 
@@ -120,6 +122,14 @@ public class ImageTag {
 
     public void setProcessor(Processor processor) {
         this.processor = processor;
+    }
+
+    public ProcessBundle getProcessBundle() {
+        return processBundle;
+    }
+
+    public void setProcessBundle(ProcessBundle processBundle) {
+        this.processBundle = processBundle;
     }
 
 	public Animation getAnimation() {
