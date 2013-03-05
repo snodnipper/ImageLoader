@@ -31,7 +31,7 @@ public class ScaleAtLeast implements Preprocessor {
     public ScaleAtLeast(int requiredPixels) {
         mRequiredPixels = requiredPixels;
         if (requiredPixels <= 0) {
-            throw new IllegalStateException("Fuck off! I won't accept zero scale");
+            throw new IllegalStateException("I won't accept zero scale");
         }
 
     }
@@ -39,7 +39,6 @@ public class ScaleAtLeast implements Preprocessor {
     @Override
     public Bitmap load(File file) {
 
-        Log.e(TAG, "YYO Max pixels: " + mRequiredPixels);
         Log.d(TAG, "Max pixels: " + mRequiredPixels);
 
         // Decode image size, see:
